@@ -10,19 +10,19 @@ def get_map_figure():
         df[col] = df[col].astype(str)
 
     df['text'] = df['State'] + '<br>' + \
-        'Donald Trump ' + df['Donald Trump'] + '<br>' + \
-        'Joe Biden ' + df['Joe Biden'] + '<br>' + \
+        'Donald Trump ' + df['Trump Rate'] + '<br>' + \
+        'Joe Biden ' + df['Biden Rate'] + '<br>' + \
         'Grand Total ' + df['Grand Total']
 
     fig = go.Figure(data=go.Choropleth(
         locations=df['Code'],
-        z=df['Trump Rate'],
+        z=df['color'],
         locationmode='USA-states',
         colorscale='bluered', # check colorscales: https://plotly.com/python/colorscales/
         autocolorscale=False,
         text=df['text'], # hover text
         marker_line_color='white', # line markers between states
-        colorbar_title="Votes"
+        colorbar_title="Trump Votes"
     ))
     
     fig.update_layout(
@@ -33,5 +33,6 @@ def get_map_figure():
             showlakes=True, # lakes
             lakecolor='rgb(255, 255, 255)'),
     )
-
+    fig.update_layout(clickmode='event+select')
+    
     return fig

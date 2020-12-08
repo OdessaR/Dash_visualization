@@ -51,9 +51,19 @@ MAP = dbc.Card(
     # style={"width":"1200px"} # set style seperately
 )
 
+TEMP_CARD = dbc.Card(
+    [
+        dbc.CardHeader("clicked state"),
+        dbc.CardBody(
+            [html.Div(id = 'out-put')]
+        )
+    ]
+)
+
 BODY = dbc.Container(
     [
-        MAP
+        MAP,
+        TEMP_CARD
     ],
     className="class_name",
 )
@@ -63,6 +73,14 @@ app.layout = html.Div(children=[
     BODY
 ])
 
+@app.callback(
+    Output('out-put','children'),
+    Input('map','clickData'))
+def display_click_data(clickData):
+    if clickData is not None:
+        output = clickData['points'][0]['location']
+        return format(output)
+    return None
 
 if __name__ == '__main__':
     app.run_server(debug=True)
