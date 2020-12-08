@@ -10,9 +10,6 @@ import pandas as pd
 import figure_creator as fc
 from colors import *
 
-VALID_USERNAME_PASSWORD_PAIRS = [
-    ['odessa', 'odessa']
-]
 
 df = pd.read_csv('data/president_county_candidate.csv')
 external_stylesheets = ['/assets/style.css']
@@ -22,11 +19,8 @@ external_stylesheets = [
     #'https://use.fontawesome.com/releases/v5.9.0/css/all.css',
 ]
 
-app = dash.Dash('auth', external_stylesheets=external_stylesheets)
-auth = dash_auth.BasicAuth(
-    app,
-    VALID_USERNAME_PASSWORD_PAIRS
-)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
 
 fig_map = fc.get_map_figure()
 
