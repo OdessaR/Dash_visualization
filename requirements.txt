@@ -6,3 +6,5 @@ dash-html-components
 dash-core-components
 dash-auth
 gunicorn
+dash_bootstrap_components
+pyecharts

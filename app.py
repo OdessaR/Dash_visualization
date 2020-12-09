@@ -1,5 +1,4 @@
 import dash
-import dash_auth
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
@@ -9,7 +8,6 @@ import plotly.graph_objects as go
 import pandas as pd
 import figure_creator as fc
 from colors import *
-
 
 df = pd.read_csv('data/president_county_candidate.csv')
 external_stylesheets = ['/assets/style.css']
@@ -23,6 +21,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 fig_map = fc.get_map_figure()
+fig_stream_chart = fc.get_stream_chart()
 
 NAVBAR = dbc.NavbarSimple(
     brand="Interactive Social Media Analysis: Twitter Sentiment to the 2020 US election",
@@ -56,7 +55,16 @@ TEMP_CARD = dbc.Card(
         dbc.CardHeader("clicked state"),
         dbc.CardBody(
             [html.Div(id = 'out-put')]
-        )
+        ),
+        dbc.CardBody([
+            dcc.Graph(
+                id = 'stream_chart',
+                figure = fig_stream_chart,
+                config={
+                    "displayModeBar": False,
+                }
+            )
+        ])
     ]
 )
 
