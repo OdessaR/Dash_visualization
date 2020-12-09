@@ -91,4 +91,4 @@ def display_click_data(clickData):
     return None
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
